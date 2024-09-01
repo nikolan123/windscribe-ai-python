@@ -72,20 +72,21 @@ async def convo(ctx, *, inprry):
             convrr = False
             ongoing_conversations[ctx.channel.id] = False
             break
-        if not user_msg.content.startswith("#") or user_msg.author.bot :
-            async with ctx.typing():
-                response = await sendmsg(mistercid, user_msg.content)
-                embed = discord.Embed(description=response.get("output", [""])[0].strip("{{action-end-conversation}}").strip("{{action-human}}"))
-                view = discord.ui.View()
-                if "{{action-end-conversation}}" in response.get("output", [""])[0]:
-                    button = discord.ui.Button(style=discord.ButtonStyle.red, label="Agent tried to end the conversation")
-                    button.disabled = True
-                    view.add_item(button)
-                elif "{{action-human}}" in response.get("output", [""])[0]:
-                    button = discord.ui.Button(style=discord.ButtonStyle.green, label="Agent is trying to connect you to a human")
-                    button.disabled = True
-                    view.add_item(button)
-                await chosen_channel.send(embed=embed, view=view)
+        if not user_msg.content.startswith("#"):
+            if not user_msg.author.bot is True:
+                async with ctx.typing():
+                    response = await sendmsg(mistercid, user_msg.content)
+                    embed = discord.Embed(description=response.get("output", [""])[0].strip("{{action-end-conversation}}").strip("{{action-human}}"))
+                    view = discord.ui.View()
+                    if "{{action-end-conversation}}" in response.get("output", [""])[0]:
+                        button = discord.ui.Button(style=discord.ButtonStyle.red, label="Agent tried to end the conversation")
+                        button.disabled = True
+                        view.add_item(button)
+                    elif "{{action-human}}" in response.get("output", [""])[0]:
+                        button = discord.ui.Button(style=discord.ButtonStyle.green, label="Agent is trying to connect you to a human")
+                        button.disabled = True
+                        view.add_item(button)
+                    await chosen_channel.send(embed=embed, view=view)
 
     # Remove the conversation task when it ends
     ongoing_conversations.pop(ctx.channel.id, None)
@@ -99,4 +100,4 @@ async def stop(ctx):
         await ctx.send("No ongoing conversation to stop.")
 
 # Run the bot with your token
-bot.run('gsdsdf')
+bot.run('sdgf')
