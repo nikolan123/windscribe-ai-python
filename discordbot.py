@@ -72,7 +72,7 @@ async def convo(ctx, *, inprry):
             convrr = False
             ongoing_conversations[ctx.channel.id] = False
             break
-        if not user_msg.content.startswith("#"):
+        if not user_msg.content.startswith("#") or user_msg.author.bot :
             async with ctx.typing():
                 response = await sendmsg(mistercid, user_msg.content)
                 embed = discord.Embed(description=response.get("output", [""])[0].strip("{{action-end-conversation}}").strip("{{action-human}}"))
@@ -99,4 +99,4 @@ async def stop(ctx):
         await ctx.send("No ongoing conversation to stop.")
 
 # Run the bot with your token
-bot.run('fsdfsd')
+bot.run('gsdsdf')
